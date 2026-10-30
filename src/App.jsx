@@ -6,6 +6,7 @@ import SummaryCards from './components/SummaryCards.jsx';
 import ReachabilityChart from './components/ReachabilityChart.jsx';
 import FindingsTable from './components/FindingsTable.jsx';
 import DependencyGraph from './components/DependencyGraph.jsx';
+import Login from './components/login.jsx';
 
 /**
  * 대시보드 전체 화면.
@@ -26,6 +27,8 @@ export default function App() {
   const [analysis, setAnalysis] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  // TODO: 로그인 API 가 생기면 실제 인증 결과로 교체 (지금은 버튼만 누르면 통과)
+  const [loggedIn, setLoggedIn] = useState(false);
 
   // 첫 화면 진입 시: 이전에 분석한 결과가 있으면 불러오기
   useEffect(() => {
@@ -46,6 +49,10 @@ export default function App() {
       setLoading(false); // 성공/실패 상관없이 로딩 해제
     }
   };
+
+  if (!loggedIn) {
+    return <Login onLogin={() => setLoggedIn(true)} />;
+  }
 
   return (
     <div className="page">
